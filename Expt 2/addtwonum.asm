@@ -1,6 +1,5 @@
 section .data
-		sys_read equ 2
-		sys_in equ 3
+
 		sys_write equ 4
 		sys_exit equ 1
 		stdin equ 0
@@ -9,17 +8,22 @@ section .data
 		message db 'Enter a num : ',10
 		messagelen equ $-message
 
-		message2 db 'The Sum is ',10
+		message2 db 'The Sum is '
 		messagelen2 equ $-message2
-		
+
+		newline db '',10
+		newlinelen equ $-newline
+
+		sys_read equ 2
+		sys_in equ 3
 
 section .bss
-		num resb 5
-		num2 resb 5
-		result resb 5
+		num resb 10
+		num2 resb 10
+		result resb 10
 
 section .text
-		global _start
+		GLOBAL _start
 
 _start:
 	mov eax,sys_write
@@ -31,7 +35,7 @@ _start:
 	mov eax,sys_in
 	mov ebx,sys_read
 	mov ecx,num
-	mov edx,2
+	mov edx,10
 	int 80h
 
 	mov eax,sys_write
@@ -43,7 +47,7 @@ _start:
 	mov eax,sys_in
 	mov ebx,sys_read
 	mov ecx,num2
-	mov edx,2
+	mov edx,10
 	int 80h
 	
 
@@ -68,6 +72,12 @@ _start:
 	mov ebx,stdout
 	mov ecx,result
 	mov edx,1
+	int 80h
+
+	mov eax,sys_write
+	mov ebx,stdout
+	mov ecx,newline
+	mov edx,newlinelen
 	int 80h
 
 	mov eax,sys_exit

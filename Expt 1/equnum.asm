@@ -11,7 +11,9 @@ section .data
 
 		message2 db 'Numbers are : ',10
 		messagelen2 equ $-message2
-
+        
+        newline db'',10
+        newlinlen equ $-newline
 section .bss
 		num1 resb 4
 		num2 resb 4
@@ -51,9 +53,21 @@ _start:
 	mov eax,sys_write
 	mov ebx,stdout
 	mov ecx,num1
-	mov edx,num2
+	mov edx,1
 	int 80h
-
+    
+    mov eax,sys_write
+	mov ebx,stdout
+	mov ecx,newline
+	mov edx,newlinlen
+	int 80h
+	
+    mov eax,sys_write
+	mov ebx,stdout
+	mov ecx,num2
+	mov edx,1
+	int 80h
+	
 	mov eax,sys_exit
 	mov ebx, 0
 	int 80h
